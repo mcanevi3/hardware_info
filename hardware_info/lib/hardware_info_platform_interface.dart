@@ -1,13 +1,7 @@
 import 'package:hardware_info/hardware_info_method_channel.dart';
 
 abstract class HardwareInfoPlatform {
-  static HardwareInfoPlatform _instance = MethodChannelHardwareInfo();
-
-  static HardwareInfoPlatform get instance => _instance;
-
-  static set instance(HardwareInfoPlatform instance) {
-    _instance = instance;
-  }
+  static HardwareInfoPlatform instance = MethodChannelHardwareInfo();
 
   Future<String?> getPlatformVersion();
 

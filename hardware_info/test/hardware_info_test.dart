@@ -7,9 +7,20 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockHardwareInfoPlatform
     with MockPlatformInterfaceMixin
     implements HardwareInfoPlatform {
-
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
+
+  @override
+  Future<String?> getBiosSerial() => Future.value('mock_bios_serial');
+
+  @override
+  Future<String?> getCpuId() => Future.value('mock_cpu_id');
+
+  @override
+  Future<String?> getMotherboardId() => Future.value('mock_motherboard_id');
+
+  @override
+  Future<String?> getNTPDate() => Future.value('mock_ntp_date');
 }
 
 void main() {

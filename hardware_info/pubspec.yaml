@@ -1,10 +1,9 @@
 name: hardware_info
 description: "A new Flutter plugin project."
 version: 0.0.1
-homepage: https://github.com/yourusername/hardware_info
-repository: https://github.com/yourusername/hardware_info
-author: Your Name <your.email@example.com>
-license: MIT
+homepage: https://github.com/mcanevi3/hardware_info
+repository: https://github.com/mcanevi3/hardware_info
+license: Appache v2
 
 environment:
   sdk: ^3.7.2
