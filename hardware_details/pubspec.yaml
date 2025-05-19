@@ -1,6 +1,6 @@
 name: hardware_details
 description: A Flutter plugin to retrieve low-level hardware information using native platform APIs.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/mcanevi3/hardware_info
 repository: https://github.com/mcanevi3/hardware_info
 license: Appache v2
