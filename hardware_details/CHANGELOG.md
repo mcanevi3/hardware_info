@@ -3,3 +3,7 @@
 
 ## 0.0.3
 * Targets added.
+
+
+## 0.0.4
+* A small fix for low level string manip
