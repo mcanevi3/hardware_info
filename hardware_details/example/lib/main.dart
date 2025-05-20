@@ -20,6 +20,7 @@ class _MyAppState extends State<MyApp> {
   String _cpuId = 'Unknown';
   String _motherboardId = 'Unknown';
   String _biosSerial = 'Unknown';
+  String _ipAddress='IPADDRESS';
   final _hardwareDetailsPlugin = HardwareDetails();
 
   @override
@@ -34,6 +35,7 @@ class _MyAppState extends State<MyApp> {
     String cpuId;
     String motherboardId;
     String biosSerial;
+    String ipAddress;
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
@@ -43,11 +45,20 @@ class _MyAppState extends State<MyApp> {
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
+    if (!mounted) return;
+    setState(() {
+      _platformVersion = platformVersion;
+    });
+
     try {
       cpuId = await _hardwareDetailsPlugin.getCpuId() ?? 'Unknown CPU id';
     } on PlatformException {
       cpuId = 'Failed to get cpu id.';
     }
+    if (!mounted) return;
+    setState(() {
+      _cpuId = cpuId;
+    });
 
     try {
       motherboardId =
@@ -56,21 +67,33 @@ class _MyAppState extends State<MyApp> {
     } on PlatformException {
       motherboardId = 'Failed to get motherboard id.';
     }
+    if (!mounted) return;
+    setState(() {
+      _motherboardId = motherboardId;
+    });
+
     try {
       biosSerial =
           await _hardwareDetailsPlugin.getBiosSerial() ?? 'Unknown BIOS serial';
     } on PlatformException {
       biosSerial = 'Failed to get BIOS serial.';
     }
-
     if (!mounted) return;
-
     setState(() {
-      _platformVersion = platformVersion;
-      _cpuId = cpuId;
-      _motherboardId = motherboardId;
       _biosSerial = biosSerial;
     });
+
+    try {
+      ipAddress =
+          await _hardwareDetailsPlugin.getIpAddress() ?? 'No IP';
+    } on PlatformException {
+      ipAddress = 'Failed to get IP address.';
+    }
+    if (!mounted) return;
+    setState(() {
+      _ipAddress = ipAddress;
+    });
+    
   }
 
   @override
@@ -85,7 +108,7 @@ class _MyAppState extends State<MyApp> {
               Text('CPU: $_cpuId\n'),
               Text('Motherboard: $_motherboardId\n'),
               Text('BIOS: $_biosSerial\n'),
-              Text('Date: \n'),
+              Text('IP: $_ipAddress\n'),
             ],
           ),
         ),

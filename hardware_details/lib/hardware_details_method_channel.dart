@@ -36,4 +36,11 @@ class MethodChannelHardwareDetails extends HardwareDetailsPlatform {
     final version = await methodChannel.invokeMethod<String>('getBiosSerial');
     return version;
   }
+  
+  @override
+  Future<String?> getIpAddress() async {
+    final version = await methodChannel.invokeMethod<String>('getIpAddress');
+    return version;
+  }
+
 }

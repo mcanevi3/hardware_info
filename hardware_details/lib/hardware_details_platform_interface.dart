@@ -38,4 +38,8 @@ abstract class HardwareDetailsPlatform extends PlatformInterface {
   Future<String?> getMotherboardId() {
     throw UnimplementedError('getMotherboardId() has not been implemented.');
   }
+
+  Future<String?> getIpAddress() {
+    throw UnimplementedError('getIpAddress() has not been implemented.');
+  }
 }

@@ -3,6 +3,8 @@
 // package as the core of your plugin.
 // ignore: avoid_web_libraries_in_flutter
 
+import 'dart:async';
+
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:web/web.dart' as web;
 
@@ -38,4 +40,9 @@ class HardwareDetailsWeb extends HardwareDetailsPlatform {
   Future<String?> getMotherboardId() async {
     return "unsupported";
   }
+  @override
+  Future<String?> getIpAddress() async {
+    return "unsupported";
+  }
+
 }

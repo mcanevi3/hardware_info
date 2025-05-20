@@ -10,3 +10,6 @@
 
 ## 0.0.5
 * MacOS added ntpDate removed
+
+## 0.0.6
+* IP address support

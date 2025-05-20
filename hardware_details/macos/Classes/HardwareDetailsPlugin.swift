@@ -63,8 +63,50 @@ public class HardwareDetailsPlugin: NSObject, FlutterPlugin {
         result(
           FlutterError(code: "UNAVAILABLE", message: "Platform expert not available", details: nil))
       }
+    case "getIpAddress":
+      if let ipAddress = getWiFiIPAddress() {
+        result(ipAddress)
+      } else {
+        result(FlutterError(code: "UNAVAILABLE", message: "IP Address not available", details: nil))
+      }
     default:
       result("default")
     }
   }
+}
+
+func getWiFiIPAddress() -> String? {
+  var address: String?
+
+  // Get list of all interfaces on the device
+  var ifaddr: UnsafeMutablePointer<ifaddrs>? = nil
+  if getifaddrs(&ifaddr) == 0 {
+    var ptr = ifaddr
+    while ptr != nil {
+      defer { ptr = ptr?.pointee.ifa_next }
+
+      guard let interface = ptr?.pointee else { return nil }
+      let addrFamily = interface.ifa_addr.pointee.sa_family
+
+      // Check for IPv4 or IPv6 interfaces
+      if addrFamily == UInt8(AF_INET) || addrFamily == UInt8(AF_INET6) {
+
+        // Check interface name (en0 is Wi-Fi)
+        let name = String(cString: interface.ifa_name)
+        if name == "en0" {
+          // Convert interface address to a human readable string:
+          var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+          let sa_len = socklen_t(interface.ifa_addr.pointee.sa_len)
+          if getnameinfo(
+            interface.ifa_addr, sa_len, &hostname, socklen_t(hostname.count),
+            nil, socklen_t(0), NI_NUMERICHOST) == 0
+          {
+            address = String(cString: hostname)
+          }
+        }
+      }
+    }
+    freeifaddrs(ifaddr)
+  }
+  return address
 }
