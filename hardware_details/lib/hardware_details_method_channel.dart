@@ -19,25 +19,27 @@ class MethodChannelHardwareDetails extends HardwareDetailsPlatform {
 
   @override
   Future<String?> getCpuId() async {
-    final cpuId = await methodChannel.invokeMethod<String>('getCpuId');
-    return cpuId;
-  }
-
-  @override
-  Future<String?> getBiosSerial() async {
-    final cpuId = await methodChannel.invokeMethod<String>('getBiosSerial');
-    return cpuId;
+    final version = await methodChannel.invokeMethod<String>('getCpuId');
+    return version;
   }
 
   @override
   Future<String?> getMotherboardId() async {
-    final cpuId = await methodChannel.invokeMethod<String>('getMotherboardId');
-    return cpuId;
+    final version = await methodChannel.invokeMethod<String>(
+      'getMotherboardId',
+    );
+    return version;
+  }
+
+  @override
+  Future<String?> getBiosSerial() async {
+    final version = await methodChannel.invokeMethod<String>('getBiosSerial');
+    return version;
   }
 
   @override
   Future<String?> getNTPDate() async {
-    final cpuId = await methodChannel.invokeMethod<String>('getNTPDate');
-    return cpuId;
+    final version = await methodChannel.invokeMethod<String>('getNTPDate');
+    return version;
   }
 }

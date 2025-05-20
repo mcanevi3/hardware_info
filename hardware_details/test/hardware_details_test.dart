@@ -11,16 +11,28 @@ class MockHardwareDetailsPlatform
   Future<String?> getPlatformVersion() => Future.value('42');
 
   @override
-  Future<String?> getBiosSerial() => Future.value('mock_bios_serial');
+  Future<String?> getCpuId() {
+    // TODO: implement getCpuId
+    throw UnimplementedError();
+  }
 
   @override
-  Future<String?> getCpuId() => Future.value('mock_cpu_id');
+  Future<String?> getBiosSerial() {
+    // TODO: implement getBiosSerial
+    throw UnimplementedError();
+  }
 
   @override
-  Future<String?> getMotherboardId() => Future.value('mock_motherboard_id');
+  Future<String?> getMotherboardId() {
+    // TODO: implement getMotherboardId
+    throw UnimplementedError();
+  }
 
   @override
-  Future<String?> getNTPDate() => Future.value('mock_ntp_date');
+  Future<String?> getNTPDate() {
+    // TODO: implement getNTPDate
+    throw UnimplementedError();
+  }
 }
 
 void main() {

@@ -1,6 +1,7 @@
 import 'hardware_details_platform_interface.dart';
 
 class HardwareDetails {
+  //extends HardwareDetailsPlatform
   Future<String?> getPlatformVersion() {
     return HardwareDetailsPlatform.instance.getPlatformVersion();
   }

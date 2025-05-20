@@ -23,10 +23,23 @@ abstract class HardwareDetailsPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  // Add this:
-  Future<String?> getPlatformVersion();
-  Future<String?> getCpuId();
-  Future<String?> getBiosSerial();
-  Future<String?> getMotherboardId();
-  Future<String?> getNTPDate();
+  Future<String?> getPlatformVersion() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<String?> getCpuId() {
+    throw UnimplementedError('getCpuId() has not been implemented.');
+  }
+
+  Future<String?> getBiosSerial() {
+    throw UnimplementedError('getBiosSerial() has not been implemented.');
+  }
+
+  Future<String?> getMotherboardId() {
+    throw UnimplementedError('getMotherboardId() has not been implemented.');
+  }
+
+  Future<String?> getNTPDate() {
+    throw UnimplementedError('getNTPDate() has not been implemented.');
+  }
 }

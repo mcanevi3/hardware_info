@@ -14,63 +14,76 @@
 #include <sstream>
 
 #include "hardware_info.h"
-namespace hardware_details {
 
-// static
-void HardwareDetailsPlugin::RegisterWithRegistrar(
-    flutter::PluginRegistrarWindows *registrar) {
-  auto channel =
-      std::make_unique<flutter::MethodChannel<flutter::EncodableValue>>(
-          registrar->messenger(), "hardware_details",
-          &flutter::StandardMethodCodec::GetInstance());
+namespace hardware_details
+{
 
-  auto plugin = std::make_unique<HardwareDetailsPlugin>();
+  // static
+  void HardwareDetailsPlugin::RegisterWithRegistrar(
+      flutter::PluginRegistrarWindows *registrar)
+  {
+    auto channel =
+        std::make_unique<flutter::MethodChannel<flutter::EncodableValue>>(
+            registrar->messenger(), "hardware_details",
+            &flutter::StandardMethodCodec::GetInstance());
 
-  channel->SetMethodCallHandler(
-      [plugin_pointer = plugin.get()](const auto &call, auto result) {
-        plugin_pointer->HandleMethodCall(call, std::move(result));
-      });
+    auto plugin = std::make_unique<HardwareDetailsPlugin>();
 
-  registrar->AddPlugin(std::move(plugin));
-}
+    channel->SetMethodCallHandler(
+        [plugin_pointer = plugin.get()](const auto &call, auto result)
+        {
+          plugin_pointer->HandleMethodCall(call, std::move(result));
+        });
 
-HardwareDetailsPlugin::HardwareDetailsPlugin() {}
+    registrar->AddPlugin(std::move(plugin));
+  }
 
-HardwareDetailsPlugin::~HardwareDetailsPlugin() {}
+  HardwareDetailsPlugin::HardwareDetailsPlugin() {}
 
-void HardwareDetailsPlugin::HandleMethodCall(
-    const flutter::MethodCall<flutter::EncodableValue> &method_call,
-    std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
-  if (method_call.method_name().compare("getPlatformVersion") == 0) {
-    std::ostringstream version_stream;
-    version_stream << "Windows ";
-    if (IsWindows10OrGreater()) {
-      version_stream << "10+";
-    } else if (IsWindows8OrGreater()) {
-      version_stream << "8";
-    } else if (IsWindows7OrGreater()) {
-      version_stream << "7";
+  HardwareDetailsPlugin::~HardwareDetailsPlugin() {}
+
+  void HardwareDetailsPlugin::HandleMethodCall(
+      const flutter::MethodCall<flutter::EncodableValue> &method_call,
+      std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result)
+  {
+    if (method_call.method_name().compare("getPlatformVersion") == 0)
+    {
+      std::ostringstream version_stream;
+      version_stream << "Windows ";
+      if (IsWindows10OrGreater())
+      {
+        version_stream << "10+";
+      }
+      else if (IsWindows8OrGreater())
+      {
+        version_stream << "8";
+      }
+      else if (IsWindows7OrGreater())
+      {
+        version_stream << "7";
+      }
+      result->Success(flutter::EncodableValue(version_stream.str()));
     }
-    result->Success(flutter::EncodableValue(version_stream.str()));
-  }else if(method_call.method_name().compare("getCpuId") == 0)
-  {
-    result->Success(flutter::EncodableValue(get_cpu_id()));
+    else if (method_call.method_name().compare("getCpuId") == 0)
+    {
+      result->Success(flutter::EncodableValue(get_cpu_id()));
+    }
+    else if (method_call.method_name().compare("getBiosSerial") == 0)
+    {
+      result->Success(flutter::EncodableValue(get_bios_serial()));
+    }
+    else if (method_call.method_name().compare("getMotherboardId") == 0)
+    {
+      result->Success(flutter::EncodableValue(get_motherboard_uuid()));
+    }
+    else if (method_call.method_name().compare("getNTPDate") == 0)
+    {
+      result->Success(flutter::EncodableValue(get_ntp_date()));
+    }
+    else
+    {
+      result->NotImplemented();
+    }
   }
-  else if(method_call.method_name().compare("getBiosSerial") == 0)
-  {
-    result->Success(flutter::EncodableValue(get_bios_serial()));
-  }
-  else if(method_call.method_name().compare("getMotherboardId") == 0)
-  {
-    result->Success(flutter::EncodableValue(get_motherboard_uuid()));
-  }
-  else if(method_call.method_name().compare("getNTPDate") == 0)
-  {
-    result->Success(flutter::EncodableValue(get_ntp_date()));
-  }
-  else {
-    result->NotImplemented();
-  }
-}
 
-}  // namespace hardware_details
+} // namespace hardware_details

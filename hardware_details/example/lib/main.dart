@@ -1,30 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter/services.dart';
 import 'package:hardware_details/hardware_details.dart';
-
-String formatIsoDateTime(String isoString) {
-  try {
-    // Parse the ISO string to DateTime
-    DateTime dt = DateTime.parse(isoString);
-
-    // Extract components with zero-padding
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-
-    final day = twoDigits(dt.day);
-    final month = twoDigits(dt.month);
-    final year = dt.year.toString();
-
-    final hour = twoDigits(dt.hour);
-    final minute = twoDigits(dt.minute);
-    final second = twoDigits(dt.second);
-
-    // Format as dd/MM/yyyy HH:mm:ss
-    return '$day/$month/$year $hour:$minute:$second';
-  } catch (e) {
-    return 'Invalid date';
-  }
-}
 
 void main() {
   runApp(const MyApp());
@@ -40,53 +18,66 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   String _cpuId = 'Unknown';
-  String _biosSerial = 'Unknown';
   String _motherboardId = 'Unknown';
-  String _getNTPDate = 'Unknown';
-  final _hardwareInfoPlugin = HardwareDetails();
+  String _biosSerial = 'Unknown';
+  String _ntpDate = 'Unknown';
+  final _hardwareDetailsPlugin = HardwareDetails();
 
   @override
   void initState() {
     super.initState();
-    initData();
+    initPlatformState();
   }
 
-  Future<void> initData() async {
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initPlatformState() async {
     String platformVersion;
     String cpuId;
-    String biosSerial;
     String motherboardId;
-    String getNTPDate;
+    String biosSerial;
+    String ntpDate;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    // We also handle the message potentially returning null.
     try {
       platformVersion =
-          await _hardwareInfoPlugin.getPlatformVersion() ??
+          await _hardwareDetailsPlugin.getPlatformVersion() ??
           'Unknown platform version';
-      cpuId = await _hardwareInfoPlugin.getCpuId() ?? 'Unknown';
-      biosSerial = await _hardwareInfoPlugin.getBiosSerial() ?? 'Unknown';
-      motherboardId = await _hardwareInfoPlugin.getMotherboardId() ?? 'Unknown';
-    } catch (e) {
-      platformVersion = 'Unknown';
-      cpuId = 'Unknown';
-      biosSerial = 'Unknown';
-      motherboardId = 'Unknown';
+    } on PlatformException {
+      platformVersion = 'Failed to get platform version.';
+    }
+    try {
+      cpuId = await _hardwareDetailsPlugin.getCpuId() ?? 'Unknown CPU id';
+    } on PlatformException {
+      cpuId = 'Failed to get cpu id.';
     }
 
     try {
-      getNTPDate = formatIsoDateTime(
-        await _hardwareInfoPlugin.getNTPDate() ?? "",
-      ); // Parse ISO 8601 string
-    } catch (e) {
-      getNTPDate = "";
+      motherboardId =
+          await _hardwareDetailsPlugin.getMotherboardId() ??
+          'Unknown motherboard id';
+    } on PlatformException {
+      motherboardId = 'Failed to get motherboard id.';
     }
-
+    try {
+      biosSerial =
+          await _hardwareDetailsPlugin.getBiosSerial() ?? 'Unknown BIOS serial';
+    } on PlatformException {
+      biosSerial = 'Failed to get BIOS serial.';
+    }
+    try {
+      ntpDate =
+          await _hardwareDetailsPlugin.getNTPDate() ?? 'Unknown internet date';
+    } on PlatformException {
+      ntpDate = 'Failed to internet date.';
+    }
     if (!mounted) return;
 
     setState(() {
       _platformVersion = platformVersion;
       _cpuId = cpuId;
-      _biosSerial = biosSerial;
       _motherboardId = motherboardId;
-      _getNTPDate = getNTPDate;
+      _biosSerial = biosSerial;
+      _ntpDate = ntpDate;
     });
   }
 
@@ -99,10 +90,10 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: [
               Text('Running on: $_platformVersion\n'),
-              Text('CPU ID: $_cpuId\n'),
-              Text('BIOS Serial: $_biosSerial\n'),
-              Text('MOTHERBOARD ID: $_motherboardId\n'),
-              Text('NTP Date: $_getNTPDate\n'),
+              Text('CPU: $_cpuId\n'),
+              Text('Motherboard: $_motherboardId\n'),
+              Text('BIOS: $_biosSerial\n'),
+              Text('Date: $_ntpDate\n'),
             ],
           ),
         ),

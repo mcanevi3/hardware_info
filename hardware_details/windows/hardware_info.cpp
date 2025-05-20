@@ -105,27 +105,28 @@ std::string get_bios_serial() {
 std::string get_motherboard_uuid() {
     std::string s = extract_single_line(run_command("wmic csproduct get uuid"), "UUID");
     
-    // trim sonucu kesin temizle
-    s.erase(std::remove_if(s.begin(), s.end(),
-    [](unsigned char c) { return c==' ' || c == ',' || c=='\r' || c=='\n'; }),
-    s.end());
+    // // trim sonucu kesin temizle
+    // s.erase(std::remove_if(s.begin(), s.end(),
+    // [](unsigned char c) { return c==' ' || c == ',' || c=='\r' || c=='\n'; }),
+    // s.end());
     
-    // tüm karakterleri küçült
-    std::transform(s.begin(), s.end(), s.begin(),
-        [](unsigned char c) -> char { return static_cast<char>(std::tolower(c)); });
+    // // tüm karakterleri küçült
+    // std::transform(s.begin(), s.end(), s.begin(),
+    //     [](unsigned char c) -> char { return static_cast<char>(std::tolower(c)); });
 
-    if (!s.empty()
-        && s != "defaultstring"
-        && s != "default string,"
-        && s != "tobefilledbyo.e.m."
-        && s != "unknown"
-        && s != "none"
-        && s != "null"
-        && s != "0000000000000000") {
-        return s;
-    }
+    return s;
+    // if (!s.empty()
+    //     && s != "defaultstring"
+    //     && s != "default string,"
+    //     && s != "tobefilledbyo.e.m."
+    //     && s != "unknown"
+    //     && s != "none"
+    //     && s != "null"
+    //     && s != "0000000000000000") {
+    //     return s;
+    // }
 
-    return "Unknown";
+    // return "Unknown";
 }
 
 
