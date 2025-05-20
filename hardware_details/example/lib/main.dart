@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   String _cpuId = 'Unknown';
   String _motherboardId = 'Unknown';
   String _biosSerial = 'Unknown';
-  String _ipAddress='IPADDRESS';
+  String _ipAddress = 'IPADDRESS';
   final _hardwareDetailsPlugin = HardwareDetails();
 
   @override
@@ -84,8 +84,7 @@ class _MyAppState extends State<MyApp> {
     });
 
     try {
-      ipAddress =
-          await _hardwareDetailsPlugin.getIpAddress() ?? 'No IP';
+      ipAddress = await _hardwareDetailsPlugin.getIpAddress() ?? 'No IP';
     } on PlatformException {
       ipAddress = 'Failed to get IP address.';
     }
@@ -93,7 +92,6 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _ipAddress = ipAddress;
     });
-    
   }
 
   @override

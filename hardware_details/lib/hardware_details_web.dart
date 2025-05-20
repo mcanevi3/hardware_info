@@ -40,9 +40,9 @@ class HardwareDetailsWeb extends HardwareDetailsPlatform {
   Future<String?> getMotherboardId() async {
     return "unsupported";
   }
+
   @override
   Future<String?> getIpAddress() async {
     return "unsupported";
   }
-
 }

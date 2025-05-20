@@ -27,7 +27,7 @@ class MockHardwareDetailsPlatform
     // TODO: implement getMotherboardId
     throw UnimplementedError();
   }
-  
+
   @override
   Future<String?> getIpAddress() {
     // TODO: implement getIpAddress
