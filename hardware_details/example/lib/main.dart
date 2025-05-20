@@ -20,7 +20,6 @@ class _MyAppState extends State<MyApp> {
   String _cpuId = 'Unknown';
   String _motherboardId = 'Unknown';
   String _biosSerial = 'Unknown';
-  final String _ntpDate = 'Unknown';
   final _hardwareDetailsPlugin = HardwareDetails();
 
   @override

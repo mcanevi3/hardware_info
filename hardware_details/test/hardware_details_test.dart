@@ -28,11 +28,6 @@ class MockHardwareDetailsPlatform
     throw UnimplementedError();
   }
 
-  @override
-  Future<String?> getNTPDate() {
-    // TODO: implement getNTPDate
-    throw UnimplementedError();
-  }
 }
 
 void main() {
