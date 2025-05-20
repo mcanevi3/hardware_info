@@ -76,10 +76,6 @@ namespace hardware_details
     {
       result->Success(flutter::EncodableValue(get_motherboard_uuid()));
     }
-    else if (method_call.method_name().compare("getNTPDate") == 0)
-    {
-      result->Success(flutter::EncodableValue(get_ntp_date()));
-    }
     else
     {
       result->NotImplemented();

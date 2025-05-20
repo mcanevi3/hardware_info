@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   String _cpuId = 'Unknown';
   String _motherboardId = 'Unknown';
   String _biosSerial = 'Unknown';
-  String _ntpDate = 'Unknown';
+  final String _ntpDate = 'Unknown';
   final _hardwareDetailsPlugin = HardwareDetails();
 
   @override
@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
     } on PlatformException {
       biosSerial = 'Failed to get BIOS serial.';
     }
-   
+
     if (!mounted) return;
 
     setState(() {
