@@ -38,5 +38,4 @@ class HardwareDetailsWeb extends HardwareDetailsPlatform {
   Future<String?> getMotherboardId() async {
     return "unsupported";
   }
-
 }

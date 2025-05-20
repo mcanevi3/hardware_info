@@ -17,5 +17,4 @@ class HardwareDetails {
   Future<String?> getMotherboardId() {
     return HardwareDetailsPlatform.instance.getMotherboardId();
   }
-
 }

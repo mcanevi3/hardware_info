@@ -7,3 +7,6 @@
 
 ## 0.0.4
 * A small fix for low level string manip
+
+## 0.0.5
+* MacOS added ntpDate removed

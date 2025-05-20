@@ -27,7 +27,6 @@ class MockHardwareDetailsPlatform
     // TODO: implement getMotherboardId
     throw UnimplementedError();
   }
-
 }
 
 void main() {
