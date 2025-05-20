@@ -35,7 +35,6 @@ class _MyAppState extends State<MyApp> {
     String cpuId;
     String motherboardId;
     String biosSerial;
-    String ntpDate;
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
@@ -64,12 +63,7 @@ class _MyAppState extends State<MyApp> {
     } on PlatformException {
       biosSerial = 'Failed to get BIOS serial.';
     }
-    try {
-      ntpDate =
-          await _hardwareDetailsPlugin.getNTPDate() ?? 'Unknown internet date';
-    } on PlatformException {
-      ntpDate = 'Failed to internet date.';
-    }
+   
     if (!mounted) return;
 
     setState(() {
@@ -77,7 +71,6 @@ class _MyAppState extends State<MyApp> {
       _cpuId = cpuId;
       _motherboardId = motherboardId;
       _biosSerial = biosSerial;
-      _ntpDate = ntpDate;
     });
   }
 
@@ -93,7 +86,7 @@ class _MyAppState extends State<MyApp> {
               Text('CPU: $_cpuId\n'),
               Text('Motherboard: $_motherboardId\n'),
               Text('BIOS: $_biosSerial\n'),
-              Text('Date: $_ntpDate\n'),
+              Text('Date: \n'),
             ],
           ),
         ),

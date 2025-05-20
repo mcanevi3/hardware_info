@@ -39,7 +39,4 @@ abstract class HardwareDetailsPlatform extends PlatformInterface {
     throw UnimplementedError('getMotherboardId() has not been implemented.');
   }
 
-  Future<String?> getNTPDate() {
-    throw UnimplementedError('getNTPDate() has not been implemented.');
-  }
 }

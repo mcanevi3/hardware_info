@@ -39,8 +39,4 @@ class HardwareDetailsWeb extends HardwareDetailsPlatform {
     return "unsupported";
   }
 
-  @override
-  Future<String?> getNTPDate() async {
-    return "unsupported";
-  }
 }

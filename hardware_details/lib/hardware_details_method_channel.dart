@@ -36,10 +36,4 @@ class MethodChannelHardwareDetails extends HardwareDetailsPlatform {
     final version = await methodChannel.invokeMethod<String>('getBiosSerial');
     return version;
   }
-
-  @override
-  Future<String?> getNTPDate() async {
-    final version = await methodChannel.invokeMethod<String>('getNTPDate');
-    return version;
-  }
 }

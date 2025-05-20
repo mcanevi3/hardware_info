@@ -18,7 +18,4 @@ class HardwareDetails {
     return HardwareDetailsPlatform.instance.getMotherboardId();
   }
 
-  Future<String?> getNTPDate() {
-    return HardwareDetailsPlatform.instance.getNTPDate();
-  }
 }
